@@ -5,7 +5,8 @@ declare -r SCREENRECORD_PATH="/tmp/screenrecord.gif"
 start_rec() {
 	slop=$(slop -f "%x %y %w %h %g %i") || exit 1
 	read -r X Y W H _ _ <<< "$slop"
-	yes | ffmpeg -f x11grab -show_region 1  -s "$W"x"$H" -i :0.0+$X,$Y -f alsa -i pulse $SCREENRECORD_PATH
+	(( FPS=$(kdialog --slider "Select a FPS" 1 60 5) ))
+	yes | ffmpeg -f x11grab -show_region 1 -s "$W"x"$H" -i :0.0+$X,$Y -f alsa -i pulse -filter_complex "FPS=$FPS" $SCREENRECORD_PATH
 }
 
 stop_rec() {
