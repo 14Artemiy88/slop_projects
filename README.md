@@ -12,3 +12,9 @@ sudo apt update
 sudo apt install tesseract-ocr
 sudo apt install tesseract-ocr-rus
 ```
+
+## Googletrans
+
+```bash
+pip3 install --upgrade googletrans==4.0.0-rc1
+```
