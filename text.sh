@@ -8,17 +8,17 @@ if [[ -z $lang ]]; then
 	exit 1
 fi
 
-translate=false
+translate=0
 if [ $lang = translate ]; then 
 	lang="eng"
-	translate=true
+	translate=1
 fi
 
 slop=$(slop -f "%g") || exit 1
 read -r GEOMETRY <<< "$slop"
 import -window root -crop "$GEOMETRY" $IMAGE_FILE
 tesseract $IMAGE_FILE $TEXT -l "$lang" 2>/dev/null
-if [ translate ]; then
+if [[ translate -eq 1 ]]; then
 	python3 "$HOME"/Apps/slop_projects/translate.py "$(<$TEXT.txt)" > "$TEXT.txt"
 fi
 
