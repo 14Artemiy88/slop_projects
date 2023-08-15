@@ -18,3 +18,11 @@ sudo apt install tesseract-ocr-rus
 ```bash
 pip3 install --upgrade googletrans==4.0.0-rc1
 ```
+
+## ZbarLight
+
+https://github.com/Polyconseil/zbarlight
+```bash
+apt-get install libzbar0 libzbar-dev
+pip install zbarlight  # you can also use setuptools directly
+```
