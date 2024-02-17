@@ -1,21 +1,21 @@
 #!/bin/bash
 
-declare -r SCREENRECORD_PATH="/tmp/screenrecord.gif"
+declare -r GIF_PATH="/tmp/screenrecord.gif"
 
 start_rec() {
 	slop=$(slop -f "%x %y %w %h %g %i") || exit 1
 	read -r X Y W H _ _ <<< "$slop"
-	(( FPS=$(kdialog --slider "Select a FPS" 1 60 5) ))
-	yes | ffmpeg -f x11grab -show_region 1 -s "$W"x"$H" -i :0.0+$X,$Y -f alsa -i pulse -filter_complex "FPS=$FPS" $SCREENRECORD_PATH
+	# (( FPS=$(kdialog --slider "Select a FPS" 1 60 5) ))
+	yes | ffmpeg -f x11grab -show_region 1 -s "$W"x"$H" -i :0.0+$X,$Y -filter_complex "[0:v] fps=12,split [a][b];[a] palettegen=stats_mode=single [p];[b][p] paletteuse=new=1" $GIF_PATH
 }
 
 stop_rec() {
 	killall ffmpeg
-	xclip -selection clipboard -t image/gif -i $SCREENRECORD_PATH
+	xclip -selection clipboard -t image/gif -i $GIF_PATH
 	kdialog --yesno 'Save?'
   if [ $? = 0 ]; then
 	  path=$(kdialog --getsavefilename "$HOME"/Images/"$(date +%s)".gif)
-	  mv $SCREENRECORD_PATH "$path"
+	  mv $GIF_PATH "$path"
   fi
 }
 
