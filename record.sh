@@ -1,12 +1,12 @@
 #!/bin/bash
 
-declare -r GIF_PATH="/tmp/screenrecord.gif"
+declare -r GIF_PATH="/run/user/1000/screenrecord.gif"
 
 start_rec() {
 	slop=$(slop -f "%x %y %w %h %g %i") || exit 1
 	read -r X Y W H _ _ <<< "$slop"
 	# (( FPS=$(kdialog --slider "Select a FPS" 1 60 5) ))
-	yes | ffmpeg -f x11grab -show_region 1 -s "$W"x"$H" -i :0.0+$X,$Y -filter_complex "[0:v] fps=12,split [a][b];[a] palettegen=stats_mode=single [p];[b][p] paletteuse=new=1" $GIF_PATH
+	ffmpeg -y -f x11grab -show_region 1 -s "$W"x"$H" -i :0.0+$X,$Y -filter_complex "[0:v] fps=12,split [a][b];[a] palettegen=stats_mode=single [p];[b][p] paletteuse=new=1" $GIF_PATH
 }
 
 stop_rec() {

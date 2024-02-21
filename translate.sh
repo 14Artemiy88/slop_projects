@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-declare -r TEXT="/tmp/translation"
+declare -r TEXT="/run/user/1000/translation"
 
 str="$( xclip -o)"
 

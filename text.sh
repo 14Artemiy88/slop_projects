@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-declare -r IMAGE_FILE="/tmp/text.png"
+declare -r IMAGE_FILE="/run/user/1000/text.png"
 declare -r TEXT="/tmp/translation"
 
 lang=$(kdialog --radiolist "Select languages:" rus "RU" off eng "EN" off translate "Translate" on)

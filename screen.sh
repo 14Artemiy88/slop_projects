@@ -1,6 +1,6 @@
 #!/bin/bash
 
-declare -r SCREENSHOT_PATH="/tmp/screenshot.png"
+declare -r SCREENSHOT_PATH="/run/user/1000/screenshot.png"
 
 slop=$(slop -f "%g") || exit 1
 read -r GEOMETRY <<< $slop
