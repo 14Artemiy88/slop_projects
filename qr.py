@@ -1,7 +1,7 @@
 from PIL import Image
 import zbarlight
 
-file_path = "/tmp/qr.png"
+file_path = "/run/user/1000/qr.png"
 with open(file_path, 'rb') as image_file:
     image = Image.open(image_file)
     image.load()
