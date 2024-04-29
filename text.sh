@@ -19,6 +19,7 @@ read -r GEOMETRY <<< "$slop"
 import -window root -crop "$GEOMETRY" $IMAGE_FILE
 tesseract $IMAGE_FILE $TEXT -l "$lang" 2>/dev/null
 if [[ translate -eq 1 ]]; then
+	source $HOME/.venvs/MyEnv/bin/activate
 	python3 "$HOME"/Apps/slop_projects/translate.py "$(<$TEXT.txt)" > "$TEXT.txt"
 fi
 
